@@ -67,7 +67,7 @@ OPENCLAW_EXPERIMENTAL_CLAWS=1 pnpm exec openclaw claws remove document-reviewer 
   --yes --plan-integrity sha256:REPLACE_WITH_THE_REMOVAL_DIGEST
 ```
 
-Check the removal result and `claws status` afterward. If removal reports `partial` or `monitor_cleanup_failed`, **do not assume the agent or workspace was removed**. Start or repair the authenticated Gateway, inspect status, then obtain a fresh removal dry-run and review its new digest before retrying. We have not verified the successful removal path against a live Gateway yet.
+Check the removal result and `claws status` afterward. If removal reports `partial` or `monitor_cleanup_failed`, **do not assume the agent or workspace was removed**. Start or repair the authenticated Gateway, inspect status, then obtain a fresh removal dry-run and review its new digest before retrying. Successful removal was verified with an isolated, authenticated loopback Gateway on the pinned OpenClaw version; other host configurations still need their own status check.
 
 ## Development
 
