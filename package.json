@@ -13,6 +13,8 @@
     "test": "vitest run",
     "validate": "openclaw plugins validate --json",
     "smoke:claw": "pnpm build && node scripts/smoke-claw.mjs",
+    "smoke:local": "pnpm build && node scripts/smoke-local.mjs",
+    "local": "node dist/local/cli.js",
     "audit:source": "node scripts/audit-source.mjs"
   },
   "dependencies": {

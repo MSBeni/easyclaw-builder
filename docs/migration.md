@@ -7,7 +7,7 @@ This repository does not import the old EasyClaw Git history. The original fork 
 - `src/blueprints/`: portable Blueprint schema, validation, variable handling, catalog examples, and registry.
 - `src/capabilities/approval-posture.ts`: brief approval-language classification.
 
-The v2026.9.4 feature-plugin backend and native page now expose a template proposal and Claw preview. The compiler reports host-specific settings it cannot carry. It intentionally does not install the Claw, write OpenClaw config, connect a channel, or enable jobs.
+The v2026.9.4 feature-plugin backend and native page expose a template proposal and Claw preview. The compiler reports host-specific settings it cannot carry. Separately, a narrow local CLI path creates an editable plan, a workspace-confined read-only Claw, and uses OpenClaw's consent-bound add flow to install one on-demand agent. It does not connect a channel or enable jobs.
 
 ## Not copied
 
@@ -19,5 +19,5 @@ The v2026.9.4 feature-plugin backend and native page now expose a template propo
 
 1. Port requirement extraction and planning behind a host-independent contract, keeping unavailable capabilities and approval requirements explicit.
 2. Complete Claw v1 mapping, including package/profile constraints. The current minimal packages pass `claws validate` on v2026.9.4, but they omit runtime setup by design.
-3. Complete the preview → consent → package flow and run a live disposable-Gateway/UI smoke test.
+3. Bring the local plan → consent → install path into the native Builder page without bypassing OpenClaw's exact-plan approval. The local CLI path and disposable-Gateway/UI preview smoke are complete.
 4. Run a final source/license/secret review and a clean-clone CI gate before making the repository public.
