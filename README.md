@@ -92,4 +92,4 @@ Do not put credentials, personal briefs, channel destinations, or private config
 
 ## Status
 
-This repository is not a complete public Builder. The narrow local CLI flow is experimental, and the native Builder page is still preview-only. Run the release checks and make the final license and support-scope decision before any visibility change. See [public-release gates](docs/public-release-gates.md).
+This is an experimental, CLI-first source project, not a complete Builder. The native Builder page is still preview-only. The source is MIT-licensed with the retained upstream attribution in [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md); it is not an npm release or a promise of production support. Review the [public-release gates](docs/public-release-gates.md) before changing repository visibility.

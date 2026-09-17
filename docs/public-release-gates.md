@@ -1,10 +1,10 @@
 # Public-release gates
 
-The repository stays private until every required gate below has evidence. Publishing source is a separate operator decision; CI does not publish npm packages or container images.
+Use this checklist before changing repository visibility. Publishing source is a separate operator decision; CI does not publish npm packages or container images. A public repository would still be experimental and CLI-first, with a preview-only native Builder page.
 
 | Gate | Current evidence | Status |
 | --- | --- | --- |
-| Fresh history and private remote | New history; noreply commit identity; old fork not copied | Complete |
+| Fresh history and isolated repository | New history; noreply commit identity; old fork not copied | Complete |
 | Runtime compatibility | Pinned OpenClaw v2026.9.4; plugin build/validate and isolated runtime load; two generated Claws validate and `claws dev` preview | Automated checks complete |
 | Product workflow | Local on-demand CLI path creates an editable plan, packages a read-only Claw, previews OpenClaw's exact add plan, requires its integrity digest, installs, and checks status in isolated state | Local CLI slice complete; native Builder page remains preview-only |
 | Live host smoke | Linked plugin in an isolated, loopback-only OpenClaw v2026.9.4 Gateway; native page loaded six templates, suggested a template from a brief, and rendered a Claw preview with manual setup tasks | Local pass; repeat on a clean host before publication |
@@ -15,7 +15,7 @@ The repository stays private until every required gate below has evidence. Publi
 
 The native template preview is not a promise that a generated agent will perform the old Blueprint's schedules, channel replies, or deliveries. Those settings are listed as manual setup tasks and are not silently installed. The local CLI path is separate: it creates only a new read-only, on-demand agent. Its isolated smoke test verifies installation and status, but does not run a model, connect an account or channel, or create a cron job.
 
-Removal requires a running authenticated Gateway. It completed against an isolated loopback Gateway on pinned OpenClaw v2026.9.4: the install record and workspace were removed. The README still documents partial-removal recovery; this test does not prove every host configuration. If removal becomes a supported product workflow, add an automated live-Gateway removal smoke. The two TypeBox packages serve different existing surfaces (migrated Blueprint code and the OpenClaw feature contract). Packaging metadata such as `peerDependencies` and npm `files` remains out of scope while this repository is source-only and private; revisit before any package distribution.
+Removal requires a running authenticated Gateway. It completed against an isolated loopback Gateway on pinned OpenClaw v2026.9.4: the install record and workspace were removed. The README still documents partial-removal recovery; this test does not prove every host configuration. If removal becomes a supported product workflow, add an automated live-Gateway removal smoke. The two TypeBox packages serve different existing surfaces (migrated Blueprint code and the OpenClaw feature contract). Packaging metadata such as `peerDependencies` and npm `files` remains out of scope while this repository is source-only; revisit before any package distribution.
 
 ## Source review scope
 
