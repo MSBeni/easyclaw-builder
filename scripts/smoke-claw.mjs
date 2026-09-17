@@ -9,8 +9,17 @@ import { compileBlueprintToClawPreview } from "../dist/claws/compile.js";
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const openclawEntry = path.join(projectRoot, "node_modules", "openclaw", "openclaw.mjs");
 const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "easyclaw-claw-smoke-"));
+const env = { ...process.env };
+for (const key of ["OPENCLAW_CONFIG_PATH", "OPENCLAW_HOME", "OPENCLAW_PROFILE"]) delete env[key];
+Object.assign(env, { OPENCLAW_EXPERIMENTAL_CLAWS: "1", OPENCLAW_STATE_DIR: path.join(temporaryRoot, "state") });
 
 try {
+  const configPath = execFileSync(process.execPath, [openclawEntry, "config", "file"], {
+    cwd: projectRoot, env, encoding: "utf8", stdio: "pipe", timeout: 120_000,
+  }).trim();
+  if (path.resolve(configPath) !== path.join(temporaryRoot, "state", "openclaw.json")) {
+    throw new Error(`Smoke test would use a non-disposable config: ${configPath}`);
+  }
   for (const templateId of ["daily-briefing", "support-responder"]) {
     const bundle = getAgentBlueprintTemplate(templateId);
     if (!bundle) throw new Error(`Missing template: ${templateId}`);
@@ -22,22 +31,14 @@ try {
     }
     execFileSync(process.execPath, [openclawEntry, "claws", "validate", packageRoot, "--json"], {
       cwd: projectRoot,
-      env: {
-        ...process.env,
-        OPENCLAW_EXPERIMENTAL_CLAWS: "1",
-        OPENCLAW_STATE_DIR: path.join(temporaryRoot, "state"),
-      },
+      env,
       encoding: "utf8",
       stdio: "pipe",
       timeout: 120_000,
     });
     execFileSync(process.execPath, [openclawEntry, "claws", "dev", packageRoot, "--json"], {
       cwd: projectRoot,
-      env: {
-        ...process.env,
-        OPENCLAW_EXPERIMENTAL_CLAWS: "1",
-        OPENCLAW_STATE_DIR: path.join(temporaryRoot, "state"),
-      },
+      env,
       encoding: "utf8",
       stdio: "pipe",
       timeout: 120_000,

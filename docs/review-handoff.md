@@ -1,5 +1,7 @@
 # EasyClaw Builder code-review handoff
 
+Historical handoff for the initial implementation review. It is not current release evidence; see [public-release gates](public-release-gates.md) and the current source/tests for the latest status.
+
 ## Review target
 
 Review the private `feature/claw-builder-foundation` branch against `main` in `MSBeni/easyclaw-builder`. The implementation under review is complete through commit `28a7247`; this handoff adds no runtime behavior. Do not change repository visibility or publish a package during review.
@@ -9,7 +11,7 @@ The goal of this slice is one usable, local, on-demand agent path on pinned Open
 ## What changed
 
 - `src/local/plan.ts` defines a strict, editable plan and compiles a Claw containing the brief, no packages/MCP/cron jobs, and an OpenClaw profile limited to workspace-confined `read` access.
-- `src/local/cli.ts` provides `plan`, `package`, `preview`, and `install`. It invokes the pinned OpenClaw CLI without a shell. Install re-runs the dry-run and requires the exact `planIntegrity` value supplied by the operator, then checks installed status. It rejects broadened package capabilities, in-repository outputs, and existing workspace targets.
+- `src/local/cli.ts` provides `plan`, `package`, `preview`, and `install`. It invokes the pinned OpenClaw CLI without a shell. Install re-runs the dry-run and requires the exact `planIntegrity` value supplied by the operator, then checks installed status. It rejects broadened package capabilities and in-repository outputs. OpenClaw rejects an unrelated existing workspace but permits an exact partial-install resume.
 - `scripts/smoke-local.mjs` exercises the whole path in disposable OpenClaw state, including changed-plan, broader-tool, in-repository-output, and existing-workspace rejection.
 - `src/plugin/*` supplies a native feature-plugin page for the Blueprint catalog and in-memory package previews. This page remains **preview-only**; it does not invoke the local CLI installation path.
 - `README.md` separates those two surfaces and provides the source-install walkthrough. `docs/public-release-gates.md`, `SECURITY.md`, `NOTICE.md`, and `LICENSE` record release boundaries and attribution.

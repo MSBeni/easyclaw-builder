@@ -23,7 +23,7 @@ export const contract = defineFeatureContract({
     propose: {
       kind: "query",
       description: "Suggest one template from an operator brief and list questions to review.",
-      input: Type.Object({ brief: Type.String({ minLength: 1, maxLength: 16000 }) }, { additionalProperties: false }),
+      input: Type.Object({ brief: Type.String({ minLength: 1, maxLength: 4000 }) }, { additionalProperties: false }),
       output: Type.Object(
         {
           matched: Type.Boolean(),

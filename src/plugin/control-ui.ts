@@ -27,6 +27,7 @@ export default defineControlUiPlugin({
 
         const brief = document.createElement("textarea");
         brief.setAttribute("aria-label", "Agent brief");
+        brief.maxLength = 4000;
         brief.placeholder = "Describe one agent role and what it should do.";
         const analyze = document.createElement("button");
         analyze.textContent = "Suggest template";
