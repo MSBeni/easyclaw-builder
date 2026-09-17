@@ -10,7 +10,8 @@ for (const file of git("ls-files", "-z").split("\0").filter(Boolean)) {
 }
 
 for (const email of git("log", "--all", "--format=%ae%n%ce").split("\n").filter(Boolean)) {
-  if (!/@users\.noreply\.github\.com$/iu.test(email)) {
+  // GitHub's synthetic pull-request merge commit uses its own generic noreply address.
+  if (!/(?:@users\.noreply\.github\.com$|^noreply@github\.com$)/iu.test(email)) {
     failures.push("A commit contains a non-noreply author or committer email.");
   }
 }
