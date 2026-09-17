@@ -25,6 +25,15 @@ export OPENCLAW_STATE_DIR="$(mktemp -d)"
 
 For a real installation, use your intended OpenClaw state instead. Either way, check the active config path printed by the CLI before consenting.
 
+If your existing `~/.openclaw` is a symlink, point OpenClaw at the real directory before running config-writing commands. The pinned OpenClaw version refuses atomic config replacement through a symlinked parent. Keep both overrides in the same shell for the entire walkthrough:
+
+```sh
+export OPENCLAW_STATE_DIR="$(realpath "$HOME/.openclaw")"
+export OPENCLAW_CONFIG_PATH="$OPENCLAW_STATE_DIR/openclaw.json"
+```
+
+If that config uses legacy keys, inspect `pnpm exec openclaw doctor --json` first. Back up the config and review the broader state migrations before running `pnpm exec openclaw doctor --fix`; doctor can change plugin, channel, auth, and workspace state. A clean disposable trial should use the separate `mktemp` setup above instead.
+
 ```sh
 pnpm install --frozen-lockfile
 pnpm build
@@ -92,4 +101,4 @@ Do not put credentials, personal briefs, channel destinations, or private config
 
 ## Status
 
-This is an experimental, CLI-first source project, not a complete Builder. The native Builder page is still preview-only. The source is MIT-licensed with the retained upstream attribution in [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md); it is not an npm release or a promise of production support. Review the [public-release gates](docs/public-release-gates.md) before changing repository visibility.
+This is an experimental, CLI-first source project, not a complete Builder. The native Builder page is still preview-only. A disposable, model-backed local turn has read a workspace note and cited its file name using OpenAI OAuth on the pinned host; that is one acceptance case, not a guarantee for every model or host runtime. The source is MIT-licensed with the retained upstream attribution in [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md); it is not an npm release or a promise of production support. Review the [public-release gates](docs/public-release-gates.md) before changing repository visibility.
