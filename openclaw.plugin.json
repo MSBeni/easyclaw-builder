@@ -1,0 +1,23 @@
+{
+  "id": "easyclaw-builder",
+  "name": "EasyClaw Builder",
+  "description": "Review agent briefs and preview portable Claw packages.",
+  "version": "0.1.0",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  },
+  "activation": {
+    "onStartup": true
+  },
+  "controlUi": {
+    "entry": "dist/control-ui/da12859e582d3cb67a548ccaba762136dc0d9a17e63f3919d6c70802932801ac/index.js",
+    "styles": [
+      "dist/control-ui/da12859e582d3cb67a548ccaba762136dc0d9a17e63f3919d6c70802932801ac/index.css"
+    ]
+  },
+  "contracts": {
+    "tools": []
+  }
+}

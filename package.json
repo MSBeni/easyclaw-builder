@@ -4,21 +4,39 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=22"
+    "node": ">=24.16.0 <25 || >=26.1.0"
   },
   "packageManager": "pnpm@10.23.0",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && openclaw plugins build",
     "check": "tsc --noEmit -p tsconfig.json",
-    "test": "vitest run"
+    "test": "vitest run",
+    "validate": "openclaw plugins validate --json",
+    "smoke:claw": "pnpm build && node scripts/smoke-claw.mjs",
+    "audit:source": "node scripts/audit-source.mjs"
   },
   "dependencies": {
     "@sinclair/typebox": "0.34.48",
-    "yaml": "2.8.2"
+    "typebox": "1.3.17",
+    "yaml": "2.9.1"
   },
   "devDependencies": {
     "@types/node": "22.18.6",
+    "esbuild": "0.28.2",
+    "openclaw": "2026.9.4",
     "typescript": "5.9.3",
-    "vitest": "4.1.0"
+    "vitest": "4.1.11"
+  },
+  "openclaw": {
+    "extensions": [
+      "./dist/plugin/index.js"
+    ],
+    "controlUi": "./src/plugin/control-ui.ts",
+    "compat": {
+      "pluginApi": "2026.9.4"
+    },
+    "build": {
+      "openclawVersion": "2026.9.4"
+    }
   }
 }
