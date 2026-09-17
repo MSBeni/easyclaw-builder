@@ -65,4 +65,4 @@ Do not put credentials, personal briefs, channel destinations, or private config
 
 ## Status
 
-This repository is not ready for public use. The narrow local CLI flow and automated installation smoke pass, but the native Builder page is still preview-only. A clean-clone installation test, final source/license review, and honest public-facing support boundaries remain before visibility changes. See [public-release gates](docs/public-release-gates.md).
+This repository is not ready to present as a complete public Builder. The narrow local CLI flow, clean-clone install smoke, and hosted CI pass, but the native Builder page is still preview-only. The maintainer should make the final license and support-scope decision before any visibility change. See [public-release gates](docs/public-release-gates.md).
