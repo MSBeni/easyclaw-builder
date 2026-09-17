@@ -8,7 +8,7 @@ The repository stays private until every required gate below has evidence. Publi
 | Runtime compatibility | Pinned OpenClaw v2026.9.4; plugin build/validate and isolated runtime load; two generated Claws validate and `claws dev` preview | Automated checks complete |
 | Product workflow | Brief suggestion, template selection, in-memory Claw preview | Incomplete: no complete consent/setup flow |
 | Live host smoke | Install and exercise native UI in a disposable Gateway | Not run |
-| Tests and CI | Typecheck, unit tests, host validation, audit workflow added | Local pass; hosted CI pending |
+| Tests and CI | Typecheck, unit tests, host validation, dependency and source audits | Local and hosted CI pass; rerun after every release change |
 | Source and license audit | Narrow copied module set, MIT notice, history pattern scan | Final human review pending |
 | Dependency audit | Moderate-or-higher advisory check | Local pass; rerun before publication |
 | Documentation | README, security policy, contribution guide, migration boundary | Needs tested installation guide |
