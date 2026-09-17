@@ -7,13 +7,13 @@ The repository stays private until every required gate below has evidence. Publi
 | Fresh history and private remote | New history; noreply commit identity; old fork not copied | Complete |
 | Runtime compatibility | Pinned OpenClaw v2026.9.4; plugin build/validate and isolated runtime load; two generated Claws validate and `claws dev` preview | Automated checks complete |
 | Product workflow | Brief suggestion, template selection, in-memory Claw preview | Incomplete: no complete consent/setup flow |
-| Live host smoke | Install and exercise native UI in a disposable Gateway | Not run |
+| Live host smoke | Linked plugin in an isolated, loopback-only OpenClaw v2026.9.4 Gateway; native page loaded six templates, suggested a template from a brief, and rendered a Claw preview with manual setup tasks | Local pass; repeat on a clean host before publication |
 | Tests and CI | Typecheck, unit tests, host validation, dependency and source audits | Local and hosted CI pass; rerun after every release change |
 | Source and license audit | Narrow copied module set, MIT notice, history pattern scan | Final human review pending |
 | Dependency audit | Moderate-or-higher advisory check | Local pass; rerun before publication |
 | Documentation | README, security policy, contribution guide, migration boundary | Needs tested installation guide |
 
-The existing preview is not a promise that a generated agent will perform the old Blueprint's schedules, channel replies, or deliveries. Those settings are listed as manual setup tasks and are not silently installed.
+The existing preview is not a promise that a generated agent will perform the old Blueprint's schedules, channel replies, or deliveries. Those settings are listed as manual setup tasks and are not silently installed. The live smoke did not exercise a model, account, channel, cron job, or installation of the generated Claw.
 
 ## Compatibility policy
 

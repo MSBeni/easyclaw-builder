@@ -38,4 +38,4 @@ Do not put credentials, personal briefs, channel destinations, or private config
 
 ## Status
 
-This repository is not ready for public use. Automated SDK and package validation pass, but a live Gateway/UI smoke test, a complete setup and consent flow, and a final source/license review remain. See [public-release gates](docs/public-release-gates.md).
+This repository is not ready for public use. Automated SDK and package validation and a disposable local Gateway/UI smoke test pass. A complete setup and consent flow, clean-host installation test, and final source/license review remain. See [public-release gates](docs/public-release-gates.md).

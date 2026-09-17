@@ -3,7 +3,14 @@ import { compileBlueprintToClawPreview } from "../claws/compile.js";
 import { proposeTemplateFromBrief } from "../planning/brief.js";
 
 export function getCatalog() {
-  return { templates: listAgentBlueprintCatalog() };
+  return {
+    templates: listAgentBlueprintCatalog().map(({ templateId, displayName, summary, tier }) => ({
+      templateId,
+      displayName,
+      summary,
+      tier,
+    })),
+  };
 }
 
 export function proposeFromBrief(brief: string) {
@@ -21,7 +28,7 @@ export function proposeFromBrief(brief: string) {
     confidence: candidate.confidence,
     reasons: candidate.reasons,
     questions: candidate.questions,
-    approvalPosture: candidate.approvalPosture ?? undefined,
+    ...(candidate.approvalPosture ? { approvalPosture: candidate.approvalPosture } : {}),
   };
 }
 
