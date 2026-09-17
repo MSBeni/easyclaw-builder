@@ -11,6 +11,8 @@ This is an early, private development repository. It is **not** a fork or replac
 - Generate a local Claw package without credentials, channel bindings, or private runtime state.
 - Validate the package against a pinned OpenClaw release before any install or public release.
 
+The current feature branch contains a conservative brief-to-template candidate matcher and a local Blueprint-to-Claw preview compiler. It does not yet contain the OpenClaw feature-plugin UI, a model-backed planner, package installation, or host validation. A generated preview always reports `installReady: false` until those gates exist.
+
 Claws and feature plugins are currently experimental OpenClaw interfaces. A generated package must be reviewed and installed by an operator; this project must not silently enable automation or connect accounts.
 
 ## Development
