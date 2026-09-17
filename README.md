@@ -40,7 +40,7 @@ pnpm local install ../document-reviewer-claw \
   --plan-integrity sha256:REPLACE_WITH_THE_REVIEWED_DIGEST
 ```
 
-If the package or host state changed, installation stops and requires a fresh preview. The CLI does not overwrite an existing plan or package directory. Installing a Claw changes your local OpenClaw agent configuration and creates a workspace; it does not start an agent turn. Use OpenClaw's agent interface to talk to the new agent after confirming a model is configured. Do not put credentials or private data in the brief unless you intend them to be stored in the generated Claw and agent workspace.
+If the package or host state changed, installation stops and requires a fresh preview. The CLI refuses plan and package outputs inside the source repository, does not overwrite existing outputs, and requires a new workspace directory. Installing a Claw changes your local OpenClaw agent configuration and creates a workspace; it does not start an agent turn. Use OpenClaw's agent interface to talk to the new agent after confirming a model is configured. Do not put credentials or private data in the brief unless you intend them to be stored in the generated Claw and agent workspace.
 
 ## Development
 

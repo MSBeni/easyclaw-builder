@@ -34,11 +34,26 @@ function runBuilder(args) {
 }
 
 try {
+  const inRepoPlan = path.join(projectRoot, ".private-plan-smoke.json");
+  let inRepoPlanRejected = false;
+  try {
+    runBuilder(["plan", "--id", "document-reviewer", "--name", "Document Reviewer", "--brief", "Read local files.", "--out", inRepoPlan]);
+  } catch (error) {
+    inRepoPlanRejected = String(error.stderr).includes("outside the source repository");
+  }
+  if (!inRepoPlanRejected || fs.existsSync(inRepoPlan)) throw new Error("In-repository plan creation was not rejected.");
   runBuilder(["plan", "--id", "document-reviewer", "--name", "Document Reviewer", "--brief", "Summarize local documents I provide and cite file names.", "--out", planPath]);
   runBuilder(["package", planPath, "--out", packageRoot]);
   const validation = JSON.parse(run(["validate", packageRoot, "--json"]));
   if (!validation.ok) throw new Error(`Generated local Claw failed validation: ${JSON.stringify(validation)}`);
   run(["dev", packageRoot, "--workspace", workspace, "--json"]);
+  let existingWorkspaceRejected = false;
+  try {
+    runBuilder(["preview", packageRoot, "--workspace", packageRoot]);
+  } catch (error) {
+    existingWorkspaceRejected = String(error.stderr).includes("nonexistent agent workspace");
+  }
+  if (!existingWorkspaceRejected) throw new Error("Existing workspace was not rejected.");
   const preview = JSON.parse(runBuilder(["preview", packageRoot, "--workspace", workspace]));
   if (preview.blockers.length > 0 || typeof preview.planIntegrity !== "string") {
     throw new Error(`Local add preview was blocked: ${JSON.stringify(preview.blockers)}`);

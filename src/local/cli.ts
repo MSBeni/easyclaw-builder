@@ -5,6 +5,14 @@ import { fileURLToPath } from "node:url";
 import { compileLocalAgentPlan, createLocalAgentPlan, validateLocalAgentPlan } from "./plan.js";
 
 type JsonRecord = Record<string, unknown>;
+const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+
+function assertOutsideProject(target: string): void {
+  const relative = path.relative(projectRoot, target);
+  if (relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative))) {
+    throw new Error("Write plans, packages, and agent workspaces outside the source repository.");
+  }
+}
 
 function record(value: unknown): JsonRecord | null {
   return value && typeof value === "object" && !Array.isArray(value) ? value as JsonRecord : null;
@@ -82,10 +90,9 @@ function expectPositionals(positionals: string[], count: number): void {
 }
 
 function runClaws(args: string[]): JsonRecord {
-  const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-  const entry = path.join(root, "node_modules", "openclaw", "openclaw.mjs");
+  const entry = path.join(projectRoot, "node_modules", "openclaw", "openclaw.mjs");
   const output = execFileSync(process.execPath, [entry, "claws", ...args, "--json"], {
-    cwd: root,
+    cwd: projectRoot,
     env: { ...process.env, OPENCLAW_EXPERIMENTAL_CLAWS: "1" },
     encoding: "utf8",
     stdio: "pipe",
@@ -104,6 +111,8 @@ function assertPackage(root: string): void {
 }
 
 function previewAdd(root: string, workspace: string): JsonRecord {
+  assertOutsideProject(workspace);
+  if (fs.existsSync(workspace)) throw new Error("Choose a new, nonexistent agent workspace directory.");
   assertPackage(root);
   const preview = runClaws(["add", root, "--workspace", workspace, "--dry-run"]);
   if (!Array.isArray(preview.blockers) || preview.blockers.length > 0 || typeof preview.planIntegrity !== "string") {
@@ -125,6 +134,7 @@ function main(argv: string[]): void {
       brief: required(options, "--brief"),
     });
     const target = path.resolve(required(options, "--out"));
+    assertOutsideProject(target);
     fs.writeFileSync(target, `${JSON.stringify(plan, null, 2)}\n`, { flag: "wx", mode: 0o600 });
     process.stdout.write(`Wrote editable local-agent plan: ${target}\n`);
     return;
@@ -137,6 +147,7 @@ function main(argv: string[]): void {
     if (!source) throw new Error("Missing plan path.");
     const plan = validateLocalAgentPlan(JSON.parse(fs.readFileSync(path.resolve(source), "utf8")));
     const root = path.resolve(required(options, "--out"));
+    assertOutsideProject(root);
     const files = compileLocalAgentPlan(plan);
     fs.mkdirSync(root);
     fs.mkdirSync(path.join(root, "profiles"));
